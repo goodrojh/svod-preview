@@ -116,6 +116,11 @@
   .reviews{display:grid;grid-template-columns:1fr;gap:14px;max-width:760px;margin:0 auto}
   .reviews a{display:block;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
   .reviews img{width:100%;height:auto}
+  .rv-cards{display:none;gap:12px;max-width:760px;margin:0 auto}
+  .rv{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+  .rv-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+  .rv-h b{font-size:15px}.rv-h i{font-style:normal;font-size:12px;color:var(--ink-3)}.rv-h em{font-style:normal;color:#FFB800;margin-left:auto;letter-spacing:1px}
+  .rv-t{display:block;margin-top:8px;font-size:15px;line-height:1.5;color:var(--ink-2)}
   .site-link{font-size:14px;font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--bronze);text-underline-offset:4px;white-space:nowrap}
   .usp{display:inline-flex;align-items:center;gap:14px;margin:0 0 22px;padding:12px 18px 12px 12px;border-radius:14px;background:linear-gradient(135deg,#B68A4E,#8F6A37);color:#fff;box-shadow:0 14px 32px -14px rgba(143,106,55,.8)}
   .usp i{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.18);flex:none}
@@ -191,6 +196,7 @@
   .input{width:100%;height:54px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:16px;color:var(--ink);outline:none;transition:border-color .15s}
   .input:focus{border-color:var(--bronze)}
   .input.err{border-color:#C8553D}
+  .input.textarea{height:auto;min-height:70px;padding:12px 16px;resize:none;line-height:1.4}
   .final{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
   .summary{background:var(--soft);border-radius:14px;padding:20px 22px;font-size:14px}
   .summary h4{margin:0 0 12px;font-size:15px}
@@ -297,6 +303,8 @@
     .opts,.opts.imgs{grid-template-columns:1fr}
     .opts.imgs{grid-template-columns:1fr 1fr;gap:10px}
     .reviews{grid-template-columns:1fr}
+    .rv-shots{display:none}
+    .rv-cards{display:grid}
     .opt-img .cap{padding:10px;font-size:14px;gap:8px}
     .opt-img .mark{width:18px;height:18px}
     .quiz-foot{padding:14px 18px 20px}
@@ -414,16 +422,10 @@
           <div class="final">
             <div>
               <p class="q">Расчёт почти готов!</p>
-              <p class="hint">Оставьте номер — инженер посчитает стоимость и отправит её в течение 15 минут</p>
-              <label class="field"><span>Ваше имя</span><input class="input" type="text" name="name" autocomplete="given-name" placeholder="Как к вам обращаться"></label>
+              <p class="hint">Оставьте имя и телефон — инженер посчитает стоимость и отправит её в течение 15 минут</p>
+              <label class="field"><span>Имя *</span><input class="input" type="text" name="name" autocomplete="given-name" placeholder="Как к вам обращаться"></label>
               <label class="field"><span>Телефон *</span><input class="input" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__"></label>
-              <div class="field" style="margin-bottom:8px"><span>Куда отправить расчёт?</span></div>
-              <div class="ways">
-                <label class="way"><input type="radio" name="messenger" value="Звонок" checked><span>Позвоните</span></label>
-                <label class="way"><input type="radio" name="messenger" value="WhatsApp"><span>WhatsApp</span></label>
-                <label class="way"><input type="radio" name="messenger" value="Telegram"><span>Telegram</span></label>
-                <label class="way"><input type="radio" name="messenger" value="Max"><span>Max</span></label>
-              </div>
+              <label class="field"><span>Комментарий <i style="font-style:normal;font-weight:500;color:var(--ink-3)">— необязательно</i></span><textarea class="input textarea" name="comment" rows="2" maxlength="1000" placeholder="Например: нужна подсветка в спальне"></textarea></label>
               <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Компания<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
               <label class="agree"><input type="checkbox" name="agree"><span>Я даю <a href="/svod-preview/consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен(а) с&nbsp;<a href="/svod-preview/privacy.html" target="_blank" rel="noopener">Политикой обработки персональных данных</a></span></label>
             </div>
@@ -480,7 +482,7 @@
       <div class="card"><div class="pic"><img src="/svod-preview/assets/projects/sm/mayak-01.webp" alt="ЖК Маяк" loading="lazy"></div><div class="txt"><span class="price">от 3 000 ₽/м²</span><b>ЖК Маяк</b><small>65 м² · магнитные треки, ниши</small></div></div>
       <div class="card"><div class="pic"><img src="/svod-preview/assets/projects/sm/isp-v-01.webp" alt="Испанские кварталы" loading="lazy"></div><div class="txt"><span class="price">от 2 100 ₽/м²</span><b>Испанские кварталы</b><small>55 м² · теневой профиль Alform, карнизы</small></div></div>
     </div>
-    <div style="margin-top:24px;text-align:center"><a class="btn" style="background:#15151A;box-shadow:none" href="/svod-preview/#projects">Все проекты и видеообзоры на сайте →</a></div>
+    <div style="margin-top:24px;text-align:center"><a class="btn" style="background:#15151A;box-shadow:none" href="/svod-preview/#projects">Все проекты на сайте →</a></div>
     </div>
   </div>
 </section>
@@ -489,11 +491,17 @@
   <div class="wrap">
     <h2 class="sec-title">Отзывы клиентов</h2>
     <p class="sec-sub">5,0 — 44 отзыва на Авито, все на 5 звёзд</p>
-    <div class="reviews">
+    <div class="reviews rv-shots">
       <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-01.webp" alt="Отзыв на Авито, Юлия" loading="lazy"></a>
       <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-02.webp" alt="Отзыв на Авито, Наталья" loading="lazy"></a>
       <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-05.webp" alt="Отзыв на Авито, Константин" loading="lazy"></a>
       <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-06.webp" alt="Отзыв на Авито, Динара" loading="lazy"></a>
+    </div>
+    <div class="rv-cards">
+      <a class="rv" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><span class="rv-h"><b>Юлия</b><i>14 марта 2025 · Авито</i><em>★★★★★</em></span><span class="rv-t">Александр отличный специалист, сделал всё по высшему уровню. Демонтировал мне потолок от застройщика, сделал скрытые карнизы для штор, установил диффузоры и лючки для пожарной сигнализации. По стоимости заранее всё обсудили, составили договор. Спасибо за хорошо выполненную работу!</span></a>
+      <a class="rv" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><span class="rv-h"><b>Наталья</b><i>31 мая 2025 · Авито</i><em>★★★★★</em></span><span class="rv-t">Ответственный, добросовестный исполнитель! Профессионал своего дела. Александр приехал в назначенное время. Работу сделал быстро и качественно. Большое спасибо! Рекомендую 💯</span></a>
+      <a class="rv" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><span class="rv-h"><b>Константин</b><i>6 ноября 2025 · Авито</i><em>★★★★★</em></span><span class="rv-t">Выполнили работу в назначенные сроки, качественно и оперативно. За собой все убрали. Однозначно рекомендую.</span></a>
+      <a class="rv" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><span class="rv-h"><b>Динара</b><i>12 апреля 2025 · Авито</i><em>★★★★★</em></span><span class="rv-t">Все отлично, быстро договорились, Александр выполнил все качественно и профессионально, спасибо большое за работу!</span></a>
     </div>
     <div style="margin-top:20px;text-align:center"><a class="btn" style="background:#15151A;box-shadow:none" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener">Все отзывы на Авито →</a></div>
   </div>
@@ -513,9 +521,10 @@
     </div>
     <form class="form-card" id="quick" novalidate>
       <h3>Рассчитать стоимость</h3>
-      <p class="sub">Напишите площадь — пришлём расчёт за 15 минут</p>
+      <p class="sub">Оставьте контакты — пришлём расчёт за 15 минут</p>
+      <label class="field"><span>Имя *</span><input class="input" type="text" name="name" autocomplete="given-name" placeholder="Как к вам обращаться"></label>
       <label class="field"><span>Телефон *</span><input class="input" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__"></label>
-      <label class="field"><span>Площадь и пожелания</span><input class="input" type="text" name="object" placeholder="Например: 2 комнаты, 40 м², световые линии"></label>
+      <label class="field"><span>Комментарий <i style="font-style:normal;font-weight:500;color:var(--ink-3)">— необязательно</i></span><textarea class="input textarea" name="comment" rows="2" maxlength="1000" placeholder="Например: 2 комнаты, 40 м², световые линии"></textarea></label>
       <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Компания<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
       <label class="agree"><input type="checkbox" name="agree"><span>Я даю <a href="/svod-preview/consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен(а) с&nbsp;<a href="/svod-preview/privacy.html" target="_blank" rel="noopener">Политикой обработки персональных данных</a></span></label>
       <button class="btn" type="submit">Получить расчёт</button>
@@ -681,6 +690,8 @@
     if (step < 4) return go(1);
     var phone = quiz.querySelector('input[name=phone]');
     var agree = quiz.querySelector('input[name=agree]');
+    var nameInp = quiz.querySelector('input[name=name]');
+    if (!nameInp.value.trim()) { nameInp.classList.add('err'); nameInp.focus(); return; }
     if (!phoneOk(phone.value)) { phone.classList.add('err'); phone.focus(); return; }
     if (!agree.checked) { agree.focus(); alert('Отметьте согласие на обработку персональных данных'); return; }
     var data = {
@@ -690,9 +701,9 @@
       area: valueOf('area'),
       type: valueOf('type'),
       when: valueOf('when'),
-      messenger: (quiz.querySelector('input[name=messenger]:checked') || {}).value || ''
+      comment: quiz.querySelector('textarea[name=comment]').value.trim()
     };
-    data.object = 'Площадь: ' + data.area + '; Потолок: ' + data.type + '; Монтаж: ' + data.when + '; Связь: ' + data.messenger;
+    data.object = 'Площадь: ' + data.area + '; Потолок: ' + data.type + '; Монтаж: ' + data.when;
     quiz.classList.add('sending');
     sendLead(data, quiz).then(function(){
       quiz.classList.remove('sending');
@@ -709,15 +720,19 @@
     e.preventDefault();
     var phone = quick.querySelector('input[name=phone]');
     var agree = quick.querySelector('input[name=agree]');
+    var qName = quick.querySelector('input[name=name]');
+    if (!qName.value.trim()) { qName.classList.add('err'); qName.focus(); return; }
     if (!phoneOk(phone.value)) { phone.classList.add('err'); phone.focus(); return; }
     if (!agree.checked) { alert('Отметьте согласие на обработку персональных данных'); return; }
     quick.classList.add('sending');
-    sendLead({source:'Квиз svodmsk.ru/2: быстрая форма', phone:phone.value, object:quick.querySelector('input[name=object]').value.trim()}, quick)
+    sendLead({source:'Квиз svodmsk.ru/2: быстрая форма', name:qName.value.trim(), phone:phone.value, comment:quick.querySelector('textarea[name=comment]').value.trim()}, quick)
       .then(function(){
         goal('lead', {form:'quick'});
         quick.innerHTML = '<div class="done" style="padding:20px 0"><div class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3 style="font-size:30px">Спасибо!</h3><p>Инженер свяжется с вами в течение 15 минут и назовёт стоимость.</p></div>';
       });
   });
+
+  document.addEventListener('input', function(e){ if (e.target.name === 'name') e.target.classList.remove('err'); });
 
   /* Цели на звонки и мессенджеры */
   document.addEventListener('click', function(e){
