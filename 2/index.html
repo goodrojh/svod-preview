@@ -112,6 +112,10 @@
   .reply{font-size:13px;line-height:1.25;font-weight:700}
   .reply span{display:block;font-weight:500;color:var(--ink-3)}
 
+  a.rating{color:inherit}
+  .reviews{display:grid;grid-template-columns:1fr;gap:14px;max-width:760px;margin:0 auto}
+  .reviews a{display:block;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .reviews img{width:100%;height:auto}
   .site-link{font-size:14px;font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--bronze);text-underline-offset:4px;white-space:nowrap}
   .usp{display:inline-flex;align-items:center;gap:14px;margin:0 0 22px;padding:12px 18px 12px 12px;border-radius:14px;background:linear-gradient(135deg,#B68A4E,#8F6A37);color:#fff;box-shadow:0 14px 32px -14px rgba(143,106,55,.8)}
   .usp i{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.18);flex:none}
@@ -292,6 +296,7 @@
     .q{font-size:28px}
     .opts,.opts.imgs{grid-template-columns:1fr}
     .opts.imgs{grid-template-columns:1fr 1fr;gap:10px}
+    .reviews{grid-template-columns:1fr}
     .opt-img .cap{padding:10px;font-size:14px;gap:8px}
     .opt-img .mark{width:18px;height:18px}
     .quiz-foot{padding:14px 18px 20px}
@@ -313,6 +318,7 @@
   <div class="wrap">
     <div class="brand">
       <a class="brand-logo" href="/svod-preview/" aria-label="СВОДЪ — перейти на сайт компании"><img src="/svod-preview/assets/svod-logo.webp" alt="СВОДЪ — натяжные потолки"></a>
+      <a class="rating" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><b>5,0</b><div><div class="stars">★★★★★</div><small>44 отзыва на Авито</small></div></a>
       <a class="site-link" href="/svod-preview/">Сайт компании →</a>
     </div>
     <div class="contacts">
@@ -475,6 +481,20 @@
     </div>
     <div style="margin-top:24px;text-align:center"><a class="btn" style="background:#15151A;box-shadow:none" href="/svod-preview/#projects">Все проекты и видеообзоры на сайте →</a></div>
     </div>
+  </div>
+</section>
+
+<section class="works" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="sec-title">Отзывы клиентов</h2>
+    <p class="sec-sub">5,0 — 44 отзыва на Авито, все на 5 звёзд</p>
+    <div class="reviews">
+      <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-01.webp" alt="Отзыв на Авито, Юлия" loading="lazy"></a>
+      <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-02.webp" alt="Отзыв на Авито, Наталья" loading="lazy"></a>
+      <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-05.webp" alt="Отзыв на Авито, Константин" loading="lazy"></a>
+      <a href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener"><img src="/svod-preview/assets/reviews/avito-06.webp" alt="Отзыв на Авито, Динара" loading="lazy"></a>
+    </div>
+    <div style="margin-top:20px;text-align:center"><a class="btn" style="background:#15151A;box-shadow:none" href="https://www.avito.ru/user/cd2ebb35e81eaf1eecfe5f3a869d6016/profile" target="_blank" rel="noopener">Все отзывы на Авито →</a></div>
   </div>
 </section>
 
