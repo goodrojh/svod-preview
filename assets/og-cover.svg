@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="СВОДЪ — натяжные потолки">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#23232B"/><stop offset="1" stop-color="#15151A"/>
+    </linearGradient>
+    <radialGradient id="ceil" cx="0.5" cy="0.2" r="0.9">
+      <stop offset="0" stop-color="#B68A4E" stop-opacity="0.22"/><stop offset="1" stop-color="#15151A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a3530"/><stop offset="0.5" stop-color="#B68A4E" stop-opacity="0.25"/><stop offset="1" stop-color="#15151A"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="441" width="1200" height="189" fill="#000" opacity="0.18"/>
+  <rect x="216" y="138.6" width="768" height="4" rx="2" fill="#B68A4E" opacity="0.9" filter="url(#glow)"/><rect x="216" y="207.89999999999998" width="768" height="4" rx="2" fill="#B68A4E" opacity="0.9" filter="url(#glow)"/><rect x="216" y="277.2" width="768" height="4" rx="2" fill="#B68A4E" opacity="0.9" filter="url(#glow)"/><rect x="216" y="346.5" width="768" height="4" rx="2" fill="#B68A4E" opacity="0.9" filter="url(#glow)"/>
+  <g font-family="Georgia, serif" fill="#F7F4EF">
+    <text x="600" y="541.8" text-anchor="middle" font-size="54" font-weight="600">СВОДЪ — натяжные потолки</text>
+    <text x="600" y="585.9" text-anchor="middle" font-size="31" fill="#B68A4E" letter-spacing="2">ГАРАНТИЯ 15 ЛЕТ · МОНТАЖ ЗА 1 ДЕНЬ</text>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64" role="img" aria-label="СВОДЪ">
+  <g fill="none" stroke="#B68A4E" stroke-width="2.4" stroke-linecap="round">
+    <path d="M8 40C8 20 18 9 32 9s24 11 24 31"/>
+    <path d="M8 40h48M14 40v10M26 40v10M38 40v10M50 40v10"/>
+  </g>
+  <text x="72" y="40" font-family="Georgia, serif" font-size="26" font-weight="600" fill="#F7F4EF" letter-spacing="2">СВОДЪ</text>
+</svg>
