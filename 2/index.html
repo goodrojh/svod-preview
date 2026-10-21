@@ -581,18 +581,32 @@
   var OPENED = Date.now();
   function isBot(form){
     var hp = form.querySelector('input[name=company]');
-    if (hp && hp.value.trim()) return true;
-    if (Date.now() - OPENED < 3000) return true;
+    if (hp && hp.value.trim()) return 'honeypot';
+    if (Date.now() - OPENED < 3000) return 'too-fast';
     try {
       var now = Date.now(), t = JSON.parse(localStorage.getItem('svod_lead_times') || '[]').filter(function(x){ return now - x < 600000; });
-      if (t.length >= 3) return true;
+      if (t.length >= 3) return 'rate-limit';
       t.push(now); localStorage.setItem('svod_lead_times', JSON.stringify(t));
     } catch(e){}
-    return false;
+    return '';
+  }
+
+  /* Лимит заявок: вместо «Спасибо» честно говорим, что заявка уже есть */
+  function showLimit(form){
+    var p = form.querySelector('.limit-msg');
+    if (!p) {
+      p = document.createElement('p');
+      p.className = 'limit-msg';
+      p.setAttribute('role', 'alert');
+      p.style.cssText = 'color:#b42318;font-size:14px;margin:12px 0 0;line-height:1.4';
+      form.appendChild(p);
+    }
+    p.textContent = 'Вы уже оставили заявку — менеджер скоро перезвонит. Если срочно, позвоните: 8 (985) 410-22-00';
   }
 
   function sendLead(data, form){
-    if (form && isBot(form)) { console.warn('Заявка отклонена антиспамом'); return Promise.resolve(); }
+    var blocked = form ? isBot(form) : '';
+    if (blocked) { console.warn('Заявка отклонена антиспамом:', blocked); return Promise.resolve(blocked); }
     var body = Object.assign({timestamp:new Date().toISOString()}, window.__svodUtm ? window.__svodUtm() : {}, data);
     return fetch(SVOD.leadUrl, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(body)})
       .catch(function(e){ console.error('Не удалось отправить заявку:', e); });
@@ -705,8 +719,9 @@
     };
     data.object = 'Площадь: ' + data.area + '; Потолок: ' + data.type + '; Монтаж: ' + data.when;
     quiz.classList.add('sending');
-    sendLead(data, quiz).then(function(){
+    sendLead(data, quiz).then(function(res){
       quiz.classList.remove('sending');
+      if (res === 'rate-limit') { showLimit(quiz); return; }
       goal('lead', {form:'quiz'});
       step = 5; bar.style.width = '100%'; render();
     });
@@ -726,7 +741,9 @@
     if (!agree.checked) { alert('Отметьте согласие на обработку персональных данных'); return; }
     quick.classList.add('sending');
     sendLead({source:'Квиз svodmsk.ru/2: быстрая форма', name:qName.value.trim(), phone:phone.value, comment:quick.querySelector('textarea[name=comment]').value.trim()}, quick)
-      .then(function(){
+      .then(function(res){
+        quick.classList.remove('sending');
+        if (res === 'rate-limit') { showLimit(quick); return; }
         goal('lead', {form:'quick'});
         quick.innerHTML = '<div class="done" style="padding:20px 0"><div class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3 style="font-size:30px">Спасибо!</h3><p>Инженер свяжется с вами в течение 15 минут и назовёт стоимость.</p></div>';
       });
