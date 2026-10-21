@@ -697,7 +697,20 @@
     step = Math.max(1, Math.min(5, step + dir));
     if (dir > 0 && step <= 4) goal('quiz_step_' + step);
     render();
-    if (window.innerWidth < 860) quiz.scrollIntoView({behavior:'smooth', block:'start'});
+    keepQuizInView();
+  }
+
+  /* После смены шага высота квиза меняется (шаг 2 с картинками высокий, шаг 3
+     короткий), и браузер оставлял человека ниже квиза — на блоке с объектами.
+     Если начало квиза ушло вверх за экран, плавно возвращаем его под шапку.
+     Работает на любой ширине экрана. */
+  function keepQuizInView(){
+    var offset = parseFloat(getComputedStyle(quiz).scrollMarginTop) || 0;
+    var top = quiz.getBoundingClientRect().top; // замер уже с новой высотой шага
+    if (top < offset - 4) {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: window.pageYOffset + top - offset, behavior: reduce ? 'auto' : 'smooth' });
+    }
   }
 
   nextBtn.addEventListener('click', function(){
