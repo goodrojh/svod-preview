@@ -605,8 +605,8 @@
   }
 
   function sendLead(data, form){
-    var blocked = form ? isBot(form) : '';
-    if (blocked) { console.warn('Заявка отклонена антиспамом:', blocked); return Promise.resolve(blocked); }
+    // Защита от ботов на стороне сайта отключена: автозаполнение браузера могло
+    // заполнить скрытое поле и заявка терялась. Мусор отсеивает скрипт (нужен телефон).
     var body = Object.assign({timestamp:new Date().toISOString()}, window.__svodUtm ? window.__svodUtm() : {}, data);
     return fetch(SVOD.leadUrl, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(body)})
       .catch(function(e){ console.error('Не удалось отправить заявку:', e); });
