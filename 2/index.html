@@ -43,7 +43,7 @@
 
 <!-- Яндекс.Метрика: подключается только после согласия на cookie -->
 <script>
-  window.__svodLoadMetrika = function () { return;
+  window.__svodLoadMetrika = function () {
     if (window.__svodMetrikaLoaded) return; window.__svodMetrikaLoaded = true;
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
     for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
@@ -51,7 +51,9 @@
     (window,document,'script','https://mc.yandex.ru/metrika/tag.js?id='+SVOD.metrikaId,'ym');
     ym(SVOD.metrikaId,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
   };
-  try { if (localStorage.getItem('svod_cookie') === 'all') window.__svodLoadMetrika(); } catch (e) {}
+  // Включаем, если посетитель нажал «Принять». Ссылка с ?_ym_debug=1 — служебная
+  // проверка установки счётчика из интерфейса Метрики, там включаем сразу.
+  try { if (localStorage.getItem('svod_cookie') === 'all' || /[?&]_ym_debug=/.test(location.search)) window.__svodLoadMetrika(); } catch (e) {}
 </script>
 
 <!-- Пиксель VK Рекламы (включается, если указан vkPixelId) -->
