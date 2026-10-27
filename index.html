@@ -109,7 +109,9 @@
       // проверка установки счётчика из интерфейса Метрики, там включаем сразу.
       try { if (localStorage.getItem('svod_cookie') === 'all' || /[?&]_ym_debug=/.test(location.search)) window.__svodLoadMetrika(); } catch (e) {}
     </script>
-    <script type="module" crossorigin src="./assets/index-Kx4Wn9pe.js"></script>
+    <!-- Невидимая Yandex SmartCaptcha для форм заявок -->
+    <script src="./assets/svod-captcha.js?v=2" async></script>
+    <script type="module" crossorigin src="./assets/index-Cp7Ys3vd.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-VGHBmv2H.css">
   </head>
   <body>

@@ -74,6 +74,9 @@
   }
 </script>
 
+<!-- Невидимая Yandex SmartCaptcha для форм заявок -->
+<script src="/svod-preview/assets/svod-captcha.js?v=2" async></script>
+
 <!-- Пиксель Авито Рекламы: как Метрика — только после «Принять» в баннере cookie -->
 <script>
   window.__svodLoadAvito = function () {
@@ -635,8 +638,12 @@
     // Защита от ботов на стороне сайта отключена: автозаполнение браузера могло
     // заполнить скрытое поле и заявка терялась. Мусор отсеивает скрипт (нужен телефон).
     var body = Object.assign({timestamp:new Date().toISOString()}, window.__svodUtm ? window.__svodUtm() : {}, data);
-    return fetch(SVOD.leadUrl, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(body)})
-      .catch(function(e){ console.error('Не удалось отправить заявку:', e); });
+    // Невидимая капча: прикладываем одноразовый токен (или '' — тогда скрипт пометит заявку)
+    var token = window.__svodCaptchaToken ? window.__svodCaptchaToken() : Promise.resolve('');
+    return token.then(function(ct){
+      body.captcha = ct;
+      return fetch(SVOD.leadUrl, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(body)});
+    }).catch(function(e){ console.error('Не удалось отправить заявку:', e); });
   }
 
   /* Маска телефона */
