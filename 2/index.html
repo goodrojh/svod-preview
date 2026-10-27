@@ -23,7 +23,9 @@
   window.SVOD = {
     leadUrl: "https://script.google.com/macros/s/AKfycbxgoT3YjLJg_GNSsWztokYtU5nB3ujO9k0QQdAtYIes-4fWjXR9LYAzeZNPAPVVO6Ga/exec",
     metrikaId: 113690004,
-    vkPixelId: "" // ID пикселя VK Рекламы, например "3512345"
+    vkPixelId: "", // ID пикселя VK Рекламы, например "3512345"
+    avitoPixelId: 4489347, // пиксель Авито Рекламы
+    avitoGoal: "lead"      // название цели в кабинете Авито (JS-событие), регистр важен
   };
 
   /* UTM-метки: запоминаем при первом заходе */
@@ -70,6 +72,25 @@
       if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
     })(document, window, "tmr-code");
   }
+</script>
+
+<!-- Пиксель Авито Рекламы: как Метрика — только после «Принять» в баннере cookie -->
+<script>
+  window.__svodLoadAvito = function () {
+    if (!SVOD.avitoPixelId || window.__svodAvitoLoaded) return; window.__svodAvitoLoaded = true;
+    var _apxl = window._apxl || (window._apxl = []);
+    _apxl.push({ id: SVOD.avitoPixelId, start: (new Date()).getTime() });
+    _apxl.q = _apxl.q || [];
+    _apxl.sendEvent = _apxl.sendEvent || function (args) { _apxl.q.push([args, location.href, (new Date()).getTime()]); };
+    (function (d, w, id) {
+      if (d.getElementById(id)) return;
+      var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+      ts.src = "https://ac.avito.ru/tag.js";
+      var f = function () { var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s); };
+      if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+    })(document, window, "apxl-code");
+  };
+  try { if (localStorage.getItem('svod_cookie') === 'all') window.__svodLoadAvito(); } catch (e) {}
 </script>
 
 <style>
@@ -546,7 +567,7 @@
 </footer>
 
 <div class="cookie" id="cookie" hidden role="dialog" aria-label="Использование cookie">
-  <div>Мы используем cookie: необходимые — для работы страницы, аналитические («Яндекс Метрика») — только с вашего согласия. Подробнее — в <a href="/svod-preview/cookies.html" target="_blank" rel="noopener">Политике cookie</a>.</div>
+  <div>Мы используем cookie: необходимые — для работы страницы, аналитические и рекламные («Яндекс Метрика», пиксель Авито) — только с вашего согласия. Подробнее — в <a href="/svod-preview/cookies.html" target="_blank" rel="noopener">Политике cookie</a>.</div>
   <div class="btns"><button type="button" data-cookie="necessary">Только необходимые</button><button type="button" class="ok" data-cookie="all">Принять</button></div>
 </div>
 
@@ -578,6 +599,8 @@
   function goal(name, params){
     try { if (window.ym) ym(SVOD.metrikaId, 'reachGoal', name, params || {}); } catch(e){}
     try { if (SVOD.vkPixelId && window._tmr) _tmr.push({type:'reachGoal', id:SVOD.vkPixelId, goal:name}); } catch(e){}
+    // Авито: цель только на отправленную заявку (квиз или быстрая форма)
+    try { if (name === 'lead' && window._apxl && window._apxl.sendEvent) window._apxl.sendEvent({ type: 'reachGoal', goalName: SVOD.avitoGoal }); } catch(e){}
   }
 
   /* Отправка заявки — в ту же таблицу, что и основной сайт */
@@ -774,7 +797,7 @@
     if (a) goal(a.getAttribute('data-goal'));
   });
 
-  /* Баннер cookie: Метрика и пиксель VK — только после «Принять» */
+  /* Баннер cookie: Метрика, пиксели VK и Авито — только после «Принять» */
   var cookieBox = document.getElementById('cookie');
   try { if (!localStorage.getItem('svod_cookie')) cookieBox.hidden = false; } catch(e) { cookieBox.hidden = false; }
   cookieBox.addEventListener('click', function(e){
@@ -782,6 +805,7 @@
     var v = b.getAttribute('data-cookie');
     try { localStorage.setItem('svod_cookie', v); } catch(err){}
     if (v === 'all' && window.__svodLoadMetrika) window.__svodLoadMetrika();
+    if (v === 'all' && window.__svodLoadAvito) window.__svodLoadAvito();
     cookieBox.hidden = true;
   });
 
